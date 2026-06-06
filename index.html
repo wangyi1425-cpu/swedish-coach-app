@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ff2442" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="瑞典语教练" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>瑞典语生活口语教练</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="学习导航">
+        <div class="brand">
+          <span class="brand-mark">S</span>
+          <div>
+            <h1>瑞典语生活口语教练</h1>
+            <p>听懂以后，自然回应</p>
+          </div>
+        </div>
+
+        <p class="mode-note">选择一个页面：完整练习、极简练习、录音、复习或自由造句。</p>
+
+        <nav class="mode-list" aria-label="练习模式">
+          <button class="mode-button active" data-mode="daily" type="button">
+            <span aria-hidden="true">◎</span>
+            完整练习
+          </button>
+          <button class="mode-button" data-mode="quick" type="button">
+            <span aria-hidden="true">◌</span>
+            厕所版
+          </button>
+          <button class="mode-button" data-mode="record" type="button">
+            <span aria-hidden="true">●</span>
+            录音模式
+          </button>
+          <button class="mode-button" data-mode="review" type="button">
+            <span aria-hidden="true">↻</span>
+            复习抽查
+          </button>
+          <button class="mode-button" data-mode="free" type="button">
+            <span aria-hidden="true">✎</span>
+            自由造句
+          </button>
+        </nav>
+
+        <section class="progress-panel" aria-label="学习进度">
+          <div class="progress-row">
+            <span>连续学习</span>
+            <strong id="streakCount">0 天</strong>
+          </div>
+          <div class="progress-row">
+            <span>已完成</span>
+            <strong id="doneCount">0 次</strong>
+          </div>
+          <div class="progress-row">
+            <span>加练</span>
+            <strong id="extraCount">0 次</strong>
+          </div>
+          <div class="progress-bar" aria-hidden="true">
+            <span id="progressFill"></span>
+          </div>
+        </section>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow" id="dateLabel">今天</p>
+            <h2 id="screenTitle">今日练习</h2>
+            <p class="mode-summary" id="modeSummary">完整练习会保留今天的全部内容。</p>
+          </div>
+          <div class="top-actions">
+            <button class="icon-button" id="shuffleButton" type="button" title="换一个场景" aria-label="换一个场景">↺</button>
+            <button class="secondary-button install-button" id="installButton" type="button">安装到手机</button>
+            <button class="primary-button" id="completeButton" type="button">完成今天</button>
+          </div>
+        </header>
+
+        <section class="coach-board" aria-label="今日开场和学习反馈">
+          <article class="welcome-card">
+            <span class="mini-label">Hej Eva</span>
+            <h3 id="greetingTitle">今天练一小段能真的用上的瑞典语</h3>
+            <p id="greetingCopy">先把回应说清楚，再慢慢说得更自然。真实开口是 bonus，不是作业。</p>
+          </article>
+
+          <article class="insight-card">
+            <div class="insight-heading">
+              <span class="mini-label">今日瑞典文化</span>
+              <span id="cultureIndex">1/7</span>
+            </div>
+            <h3 id="cultureTitle">瑞典人的“lagom”不只是适中</h3>
+            <p id="cultureCopy">在很多工作和公共服务对话里，lagom 也代表一种低冲突、高可预期的互动节奏。</p>
+          </article>
+
+          <article class="level-card">
+            <span class="mini-label">阶段反馈</span>
+            <div class="level-line">
+              <strong id="levelName">生活回应打底期</strong>
+              <span id="levelPercent">0%</span>
+            </div>
+            <div class="level-track" aria-hidden="true">
+              <span id="levelFill"></span>
+            </div>
+            <p id="levelFeedback">你现在重点在把“听懂”转换成自然回应，先稳住高频场景。</p>
+          </article>
+        </section>
+
+        <section class="faith-family-grid" aria-label="经文祷告和亲子表达">
+          <article class="panel verse-panel" data-panel="verse">
+            <div class="panel-heading">
+              <h3>今日经文祷告</h3>
+              <button class="ghost-button" id="playVerseButton" type="button">播放经文</button>
+            </div>
+            <p class="verse-ref" id="verseRef">Psaltaren 23:1</p>
+            <p class="verse-text" id="verseText">Herren är min herde, mig skall intet fattas.</p>
+            <p class="zh" id="verseZh">耶和华是我的牧者，我必不至缺乏。</p>
+            <div class="prayer-box">
+              <span class="mini-label">祷告练习</span>
+              <p id="prayerPrompt">用这节经文祷告 2-3 句。开头可以说：Herre, tack för att du...</p>
+            </div>
+          </article>
+
+          <article class="panel child-panel" data-panel="child">
+            <div class="panel-heading">
+              <h3>亲子瑞典语</h3>
+              <button class="ghost-button" id="copyChildButton" type="button">复制</button>
+            </div>
+            <div id="childPhraseList" class="child-phrase-list"></div>
+          </article>
+        </section>
+
+        <section class="completion-card" id="completionCard" aria-label="完成反馈">
+          <div>
+            <span class="mini-label">Bra jobbat Eva</span>
+            <h3 id="completionTitle">今天的核心任务已经完成</h3>
+            <p id="completionCopy">你已经给瑞典语留过位置了。如果今天还有余力，可以再学一点，不影响今天已经完成的记录。</p>
+          </div>
+          <button class="primary-button" id="learnMoreButton" type="button">再学一点</button>
+        </section>
+
+        <section class="panel extra-task-card" id="extraTaskCard" aria-label="加练任务">
+          <div class="panel-heading">
+            <h3>加练任务</h3>
+            <button class="ghost-button" id="closeExtraTaskButton" type="button">收起</button>
+          </div>
+          <p class="task-copy" id="extraTaskPrompt">这里会出现新的加练任务。</p>
+          <div id="extraTaskBlocks" class="block-list"></div>
+        </section>
+
+        <section class="scenario-band">
+          <div class="scenario-copy">
+            <span class="tag" id="scenarioTag">幼儿园</span>
+            <h3 id="scenarioTitle">幼儿园老师说孩子今天有点累</h3>
+            <p id="scenarioIntro">练习如何感谢提醒、追问症状，并说明你回家会观察。</p>
+          </div>
+          <div class="scenario-controls" aria-label="场景选择">
+            <button class="chip active" data-scenario="preschool" type="button">幼儿园</button>
+            <button class="chip" data-scenario="healthcare" type="button">医疗</button>
+            <button class="chip" data-scenario="public" type="button">公共服务</button>
+            <button class="chip" data-scenario="social" type="button">日常社交</button>
+            <button class="chip" data-scenario="work" type="button">工作礼貌</button>
+          </div>
+        </section>
+
+        <section class="workspace-grid">
+          <article class="panel dialogue-panel" data-panel="dialogue">
+            <div class="panel-heading">
+              <h3>迷你对话</h3>
+              <button class="ghost-button" id="playDialogueButton" type="button">播放瑞典语</button>
+            </div>
+            <div id="dialogueList" class="dialogue-list"></div>
+          </article>
+
+          <article class="panel" data-panel="blocks">
+            <div class="panel-heading">
+              <h3>核心表达块</h3>
+              <button class="ghost-button" id="copyBlocksButton" type="button">复制</button>
+            </div>
+            <div id="blockList" class="block-list"></div>
+          </article>
+
+          <article class="panel" data-panel="drills">
+            <div class="panel-heading">
+              <h3>替换练习</h3>
+              <button class="ghost-button" id="showAnswersButton" type="button">显示参考</button>
+            </div>
+            <div id="drillList" class="drill-list"></div>
+          </article>
+
+          <article class="panel output-panel" data-panel="output">
+            <div class="panel-heading">
+              <h3>输出任务</h3>
+              <button class="ghost-button" id="copyPromptButton" type="button">请教练点评</button>
+            </div>
+            <p id="outputPrompt" class="task-copy"></p>
+            <textarea id="answerBox" rows="6" placeholder="在这里写 3-5 句瑞典语。也可以录音后把文本发给教练严格纠错。"></textarea>
+            <div class="recorder">
+              <button class="secondary-button" id="recordButton" type="button">开始录音</button>
+              <a class="download-link" id="downloadRecording" href="#" download="svenska-inspelning.webm">下载录音</a>
+              <audio id="audioPlayback" controls></audio>
+            </div>
+          </article>
+
+          <article class="panel feedback-panel" id="feedbackPanel" data-panel="feedback">
+            <div class="panel-heading">
+              <h3>教练点评</h3>
+              <button class="ghost-button" id="clearFeedbackButton" type="button">清空</button>
+            </div>
+            <div id="feedbackContent" class="feedback-content">
+              <p class="zh">写完瑞典语后点“请教练点评”，这里会直接显示点评结果。</p>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
