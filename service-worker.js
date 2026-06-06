@@ -1,11 +1,11 @@
-const CACHE_NAME = "svenska-coach-v7";
+const CACHE_NAME = "svenska-coach-v9";
 const APP_ASSETS = [
   "./",
   "./index.html",
-  "./styles.css",
-  "./app.js",
-  "./manifest.json",
-  "./icon.svg"
+  "./styles.css?v=9",
+  "./app.js?v=9",
+  "./manifest.json?v=9",
+  "./icon.svg?v=9"
 ];
 
 self.addEventListener("install", (event) => {
